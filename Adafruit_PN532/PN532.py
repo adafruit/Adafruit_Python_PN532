@@ -333,6 +333,8 @@ class PN532(object):
         Ver, Rev, and Support values.
         """
         response = self.call_function(PN532_COMMAND_GETFIRMWAREVERSION, 4)
+        if response is None:
+            raise RuntimeError('Failed to detect the PN532!  Make sure there is sufficient power (use a 1 amp or greater power supply), the PN532 is wired correctly to the device, and the solder joints on the PN532 headers are solidly connected.')
         return (response[0], response[1], response[2], response[3])
 
     def SAM_configuration(self):
