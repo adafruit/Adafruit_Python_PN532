@@ -3,7 +3,7 @@ use_setuptools()
 from setuptools import setup, find_packages
 
 setup(name              = 'Adafruit_PN532',
-      version           = '1.0.0',
+      version           = '1.1.0',
       author            = 'Tony DiCola',
       author_email      = 'tdicola@adafruit.com',
       description       = 'Python library for accessing a PN532 NFC breakout over a SPI connection from a Raspberry Pi, BeagleBone Black, etc.',
