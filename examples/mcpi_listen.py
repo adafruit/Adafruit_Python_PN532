@@ -71,9 +71,9 @@ pn532 = PN532.PN532(cs=CS, sclk=SCLK, mosi=MOSI, miso=MISO)
 pn532.begin()
 pn532.SAM_configuration()
 
-print 'Minecraft Block NFC Listener'
-print ''
-print 'Waiting for MiFare card...'
+print('Minecraft Block NFC Listener')
+print('')
+print('Waiting for MiFare card...')
 while True:
     # Wait for a card to be available.
     uid = pn532.read_passive_target()
@@ -81,19 +81,19 @@ while True:
     if uid is None:
         continue
     # Found a card, now try to read block 4 to detect the block type.
-    print 'Found card with UID 0x{0}'.format(binascii.hexlify(uid))
+    print('Found card with UID 0x{0}'.format(binascii.hexlify(uid)))
     # Authenticate and read block 4.
-    if not pn532.mifare_classic_authenticate_block(uid, 4, PN532.MIFARE_CMD_AUTH_B, 
+    if not pn532.mifare_classic_authenticate_block(uid, 4, PN532.MIFARE_CMD_AUTH_B,
                                                    CARD_KEY):
-        print 'Failed to authenticate with card!'
+        print('Failed to authenticate with card!')
         continue
     data = pn532.mifare_classic_read_block(4)
     if data is None:
-        print 'Failed to read data from card!'
+        print('Failed to read data from card!')
         continue
     # Check if card has Minecraft block data by looking for header 'MCPI'
-    if data[0:4] != 'MCPI':
-        print 'Card is not written with Minecraft block data!'
+    if data[0:4] != b'MCPI':
+        print('Card is not written with Minecraft block data!')
         continue
     # Parse out the block type and subtype.
     block_id = data[4]
@@ -104,11 +104,11 @@ while True:
         if block[1] == block_id:
             block_name = block[0]
             break
-    print 'Found block!'
-    print 'Type: {0}'.format(block_name)
+    print('Found block!')
+    print('Type: {0}'.format(block_name))
     if has_subtype:
         subtype_name = mcpi_data.SUBTYPES[block_name][subtype_id]
-        print 'Subtype: {0}'.format(subtype_name)
+        print('Subtype: {0}'.format(subtype_name))
     # Try to create the block in Minecraft.
     # First check if connected to Minecraft world.
     try:
@@ -118,5 +118,5 @@ while True:
         time.sleep(MAX_UPDATE_SEC)
     except socket.error:
         # Socket error, Minecraft probably isn't running.
-        print 'Could not connect to Minecraft, is the game running in a world?'
+        print('Could not connect to Minecraft, is the game running in a world?')
         continue

@@ -20,6 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 import binascii
+from functools import reduce
 import logging
 import time
 
@@ -151,12 +152,12 @@ class PN532(object):
     PN532 (see: http://www.raspberrypi.org/forums/viewtopic.php?f=32&t=98070&p=720659#p720659)
     """
 
-    def __init__(self, cs, sclk=None, mosi=None, miso=None, gpio=None, 
+    def __init__(self, cs, sclk=None, mosi=None, miso=None, gpio=None,
                  spi=None):
-        """Create an instance of the PN532 class using either software SPI (if 
+        """Create an instance of the PN532 class using either software SPI (if
         the sclk, mosi, and miso pins are specified) or hardware SPI if a
         spi parameter is passed.  The cs pin must be a digital GPIO pin.
-        Optionally specify a GPIO controller to override the default that uses 
+        Optionally specify a GPIO controller to override the default that uses
         the board's GPIO pins.
         """
         # Default to platform GPIO if not provided.

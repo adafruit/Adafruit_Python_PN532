@@ -1,1 +1,1 @@
-from PN532 import *
+from .PN532 import *
