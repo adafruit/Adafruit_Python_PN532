@@ -1,5 +1,11 @@
-from ez_setup import use_setuptools
-use_setuptools()
+try:
+    # Try using ez_setup to install setuptools if not already installed.
+    from ez_setup import use_setuptools
+    use_setuptools()
+except ImportError:
+    # Ignore import error and assume Python 3 which already has setuptools.
+    pass
+
 from setuptools import setup, find_packages
 
 classifiers = ['Development Status :: 4 - Beta',
@@ -12,7 +18,7 @@ classifiers = ['Development Status :: 4 - Beta',
                'Topic :: System :: Hardware']
 
 setup(name              = 'Adafruit_PN532',
-      version           = '1.2.0',
+      version           = '1.2.1',
       author            = 'Tony DiCola',
       author_email      = 'tdicola@adafruit.com',
       description       = 'Python library for accessing a PN532 NFC breakout over a SPI connection from a Raspberry Pi, BeagleBone Black, etc.',
